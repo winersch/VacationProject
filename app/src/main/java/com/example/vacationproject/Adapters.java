@@ -44,17 +44,19 @@ public class Adapters extends BaseAdapter {
             convertView = inflater.inflate(R.layout.xml_list_item_layout,parent,false);
         }
 
-        ImageView imageView = (ImageView) convertView.findViewById(R.id.imageView1);
+        if(arrayList.get(position).isHasImg() && arrayList.get(position).getImg() != null){
+
+            ImageView imageView = (ImageView) convertView.findViewById(R.id.imageView1);
+            ImageLoadTask task = new ImageLoadTask("https:"+arrayList.get(position).getImg(),imageView);
+            task.execute();
+
+        }
 
         TextView textView1 = (TextView) convertView.findViewById(R.id.textView1);
         TextView textView2 = (TextView) convertView.findViewById(R.id.textView2);
 
-        ImageLoadTask task = new ImageLoadTask(arrayList.get(position).getImg(),imageView);
-        task.execute();
-
         textView1.setText((String) arrayList.get(position).getTitle());
         textView2.setText((String) arrayList.get(position).getDescription());
-
 
 
         return convertView;

@@ -33,8 +33,10 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
             if (bitmapHash.containsKey(urlStr)) {
                 Bitmap oldbitmap = bitmapHash.remove(urlStr);
                 if(oldbitmap != null) {
-                    oldbitmap.recycle();
-                    oldbitmap = null;
+
+                    // 리사이클 조지면 스크롤 내렸다 올릴때 앱종료되서 리사이클 안시킴 -> 해결방안 찾아야함.
+//                    oldbitmap.recycle();
+//                    oldbitmap = null;
                 }
             }
             URL url = new URL(urlStr);
