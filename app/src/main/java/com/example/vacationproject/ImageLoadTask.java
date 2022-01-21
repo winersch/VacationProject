@@ -62,7 +62,7 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
         imageView.invalidate();
     }
 
-    public static void recycleBitmap(){
+    public void recycleBitmap(){
 
         for(String strKey : bitmapHash.keySet()){
             Bitmap bitmap = bitmapHash.get(strKey);
