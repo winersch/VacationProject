@@ -3,10 +3,15 @@ package com.example.vacationproject;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ImageView;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 
 public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
@@ -29,24 +34,18 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
     @Override
     protected Bitmap doInBackground(Void... voids) {
         Bitmap bitmap = null;
+
+        URL url = null;
         try {
-            if (bitmapHash.containsKey(urlStr)) {
-                Bitmap oldbitmap = bitmapHash.remove(urlStr);
-                if(oldbitmap != null) {
-
-                    // 리사이클 조지면 스크롤 내렸다 올릴때 앱종료되서 리사이클 안시킴 -> 해결방안 찾아야함.
-//                    oldbitmap.recycle();
-//                    oldbitmap = null;
-                }
-            }
-            URL url = new URL(urlStr);
+            url = new URL(urlStr);
             bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-
             bitmapHash.put(urlStr,bitmap);
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+         catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+
+
 
         return bitmap;
     }
@@ -61,5 +60,13 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
 
         imageView.setImageBitmap(bitmap);
         imageView.invalidate();
+    }
+
+    public static void recycleBitmap(){
+
+        for(String strKey : bitmapHash.keySet()){
+            Bitmap bitmap = bitmapHash.get(strKey);
+            bitmap.recycle();
+        }
     }
 }

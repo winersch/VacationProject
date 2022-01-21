@@ -37,8 +37,6 @@ public class Adapters extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-
-
         if (convertView == null){
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.xml_list_item_layout,parent,false);
@@ -57,7 +55,6 @@ public class Adapters extends BaseAdapter {
 
         textView1.setText((String) arrayList.get(position).getTitle());
         textView2.setText((String) arrayList.get(position).getDescription());
-
 
         return convertView;
     }

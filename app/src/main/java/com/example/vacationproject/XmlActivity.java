@@ -53,5 +53,9 @@ public class XmlActivity extends AppCompatActivity {
         list = vp.getData();
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ImageLoadTask.recycleBitmap();
+    }
 }
